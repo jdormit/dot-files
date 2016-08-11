@@ -6,6 +6,14 @@ PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
 PATH=$PATH:~/bin
 
+# display git info in prompt
+source ~/bin/git-prompt.sh
+PS1='$(__git_ps1 " (%s)")'
+export GIT_PS1_SHOWDIRTYSTATE="1"
+export GIT_PS1_SHOWSTASHSTATE="1"
+export GIT_PS1_SHOWUNTRACKEDFILES="1"
+export GIT_PS1_SHOWUPSTREAM="auto"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -61,9 +69,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'"$PS1"'\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'"$PS1"'\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -75,6 +83,7 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
