@@ -3,8 +3,8 @@
 # for examples
 
 PATH=$PATH:/usr/lib/postgresql/9.4/bin/
-PATH=$PATH:/home/jeremy/eclipse/java-neon/eclipse
-PATH=$PATH:/home/jeremy/bin
+PATH=$PATH:~/eclipse/java-neon/eclipse
+PATH=$PATH:~/bin
 
 # If not running interactively, don't do anything
 case $- in
