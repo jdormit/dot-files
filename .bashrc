@@ -6,6 +6,8 @@ PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
 PATH=$PATH:~/bin
 
+source ~/bin/git-completion.bash
+
 # display git info in prompt
 source ~/bin/git-prompt.sh
 PS1='$(__git_ps1 " (%s)")'
