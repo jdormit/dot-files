@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if  ([ $# -eq 0 ] ||  ([ $# -eq 1 ] && [ "$1" == "." ]));
+then
+    hg pull
+    hg merge
+    hg up
+else
+    for dir
+    do
+        if [[ "$dir" == /* ]];
+        then
+            (
+            cd $dir || exit 1
+            hg pull
+            hg merge
+            hg up
+            )
+        else
+            (
+            cd ./$dir || exit 1
+            hg pull
+            hg merge
+            hg up
+            )
+        fi
+    done
+fi

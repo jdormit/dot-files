@@ -1,0 +1,10 @@
+if [ -n "$1" ]; then # Test whether command-line argument is present (non-empty).
+   dbname=$1
+else
+   echo "Must enter a database to empty."
+   exit
+fi
+
+psql -U postgres -c "drop database $dbname;"
+psql -U postgres -c "create database $dbname owner sm_sampleminded;"
+exit

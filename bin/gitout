@@ -1,0 +1,13 @@
+#!/bin/bash
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ -n "$1" ]; then
+    remote="$1/$branch"
+else
+    remote=$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")
+    if [ -z "$remote" ]; then
+        echo "Unable to detect upstream remote. Please specify."
+        exit 1
+    fi
+fi
+git log "${@:2}" "$remote..$branch"
