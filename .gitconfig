@@ -7,7 +7,7 @@
 	username = jdormit
 
 [core]
-        editor = emacs
+        editor = emacs -nw
         pager = ""
 
 [alias]
