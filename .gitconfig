@@ -7,8 +7,9 @@
 	username = jdormit
 
 [core]
-        editor = emacs -nw
+        editor = emacs
         pager = ""
+        excludesfile = ~/.gitignore_global
 
 [alias]
         out = !gitout
@@ -19,5 +20,7 @@
         untrack = rm --cache
         alias = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
         aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+        unstage = reset HEAD --
+        append = commit --amend --no-edit
 [push]
 	default = simple
