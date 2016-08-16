@@ -22,5 +22,7 @@
         aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
         unstage = reset HEAD --
         append = commit --amend --no-edit
+        changes = log -p -1 --
+
 [push]
 	default = simple
