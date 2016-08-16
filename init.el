@@ -53,8 +53,10 @@
 (global-set-key (kbd"\C-c SPC") 'compile)
 (global-set-key "\C-c\C-c"      'shell-command)
 (global-set-key "\C-x\C-l"      'linum-mode)
-(global-set-key "\C-cm"      'toggle-frame-maximized)
-(global-set-key (kbd"C-<return>")     'newline) ;; newline without auto-indent
+(global-set-key "\C-cm"         'toggle-frame-maximized)
+(global-set-key (kbd"C-<return>")
+                                'newline) ;; newline without auto-indent
+(global-set-key "\C-x\M-f"      'sudo-find-file)
 
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
