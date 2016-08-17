@@ -179,5 +179,8 @@ prompt the user for a coding system."
 (add-hook 'shell-dynamic-complete-functions
   'bash-completion-dynamic-complete)
 
+(add-hook 'comint-output-filter-functions
+'comint-watch-for-password-prompt)
+
 (global-wakatime-mode)
 
