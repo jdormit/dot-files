@@ -6,6 +6,8 @@
 
 (require 'dired-x)
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -170,6 +172,12 @@ prompt the user for a coding system."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
+
+(autoload 'bash-completion-dynamic-complete 
+  "bash-completion"
+  "BASH completion hook")
+(add-hook 'shell-dynamic-complete-functions
+  'bash-completion-dynamic-complete)
 
 (global-wakatime-mode)
 
