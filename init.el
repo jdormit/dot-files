@@ -6,6 +6,8 @@
 
 (require 'dired-x)
 
+(global-auto-revert-mode 1)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (custom-set-variables
