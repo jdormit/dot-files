@@ -6,6 +6,9 @@ PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
 PATH=$PATH:~/bin
 
+export GOPATH=~/golang
+PATH=$PATH:~/golang/bin
+
 source ~/bin/git-completion.bash
 
 # display git info in prompt
