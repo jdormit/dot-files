@@ -3,15 +3,18 @@
 branch=$(git rev-parse --abbrev-ref HEAD)
 if [ -n "$1" ] && [[ "$1" != -* ]]; then
     remoteArg=true
+    remoteName="$1"
     remote="$1/$branch"
 else
     remoteArg=false
+    remoteName=$(git config branch.`git name-rev --name-only HEAD`.remote)
     remote=$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")
     if [ -z "$remote" ]; then
         echo "Unable to detect upstream remote. Please specify."
         exit 1
     fi
 fi
+git fetch "$remoteName"
 if [ "$remoteArg" = true ]; then
    git log "${@:2}" "$branch..$remote"
 else
