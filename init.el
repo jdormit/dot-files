@@ -15,7 +15,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(custom-enabled-themes (quote (tango-dark)))
+ '(custom-safe-themes
+   (quote
+    ("5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
  '(indent-tabs-mode nil)
  '(require-final-newline t)
  '(send-mail-function (quote smtpmail-send-it))
@@ -61,6 +68,8 @@
 (global-set-key (kbd"C-<return>")
                                 'newline) ;; newline without auto-indent
 (global-set-key "\C-x\M-f"      'sudo-find-file)
+(global-set-key (kbd "C--")     'text-scale-decrease)
+(global-set-key (kbd "C-=")     'text-scale-increase)
 
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
@@ -186,3 +195,4 @@ prompt the user for a coding system."
 
 (global-wakatime-mode)
 
+(xterm-mouse-mode)

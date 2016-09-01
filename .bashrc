@@ -11,6 +11,12 @@ PATH=$PATH:~/golang/bin
 
 source ~/bin/git-completion.bash
 
+if [ -z "$EMACS" ]; then
+    export EDITOR="emacs -nw"
+else
+    export EDITOR=emacs
+fi
+   
 # display git info in prompt
 source ~/bin/git-prompt.sh
 PS1='$(__git_ps1 " (%s)")'
@@ -60,7 +66,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -244,3 +250,17 @@ man() {
     LESS_TERMCAP_us=$'\e'"[1;32m" \
     command man "$@"
 }
+
+shopt -s globstar
+shopt -s extglob
+
+export AUTO_NTFY_DONE_UNFOCUSED_ONLY=-b
+eval "$(ntfy shell-integration)"
+
+export PYTHONSTARTUP=~/.pythonrc
+export WORKON_HOME=~/.envs
+export PROJECT_HOME=~/python_projects
+source /usr/local/bin/virtualenvwrapper.sh
+
+source /home/jeremy/bin/tmux_autocompletion.sh
+alias tmux="tmux -2"
