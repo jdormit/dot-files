@@ -12,9 +12,10 @@ PATH=$PATH:~/golang/bin
 source ~/bin/git-completion.bash
 
 if [ -z "$EMACS" ]; then
-    export EDITOR="emacs -nw"
+    alias emacs="emacs -nw"
+    export EDITOR="emacs -Q -nw"
 else
-    export EDITOR=emacs
+    export EDITOR="emacs -Q"
 fi
    
 # display git info in prompt
@@ -264,3 +265,11 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 source /home/jeremy/bin/tmux_autocompletion.sh
 alias tmux="tmux -2"
+
+eval "$(thefuck --alias)"
+
+alias git=hub
+source ~/hub/etc/hub.bash_completion.sh
+alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
+alias octave="octave --no-gui"
+alias em="emacs -Q"

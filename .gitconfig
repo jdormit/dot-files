@@ -7,7 +7,6 @@
 	username = jdormit
 
 [core]
-        editor = emacs
         pager = ""
         excludesfile = ~/.gitignore_global
 
