@@ -8,7 +8,11 @@
 
 (global-auto-revert-mode 1)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(let ((default-directory  "~/.emacs.d/lisp/"))
+  (normal-top-level-add-to-load-path '("."))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(require 'ecb)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -19,10 +23,13 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tango-dark)))
+ '(custom-enabled-themes (quote (foggy-night)))
  '(custom-safe-themes
    (quote
-    ("5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
+    ("d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
+ '(ecb-options-version "2.40")
+ '(eclim-eclipse-dirs (quote ("~/opt/eclipse")))
+ '(eclim-executable "~/opt/eclipse/eclim")
  '(indent-tabs-mode nil)
  '(require-final-newline t)
  '(send-mail-function (quote smtpmail-send-it))
@@ -39,9 +46,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;; Send backups to a save directory, so you don't have a bunch of ~ files in your working directories.
-;; Make sure this directory exists!
-(setq backup-directory-alist `(("." . "~/.saves")))
+
+(defvar user-temporary-file-directory
+  (concat temporary-file-directory user-login-name "/"))
+(make-directory user-temporary-file-directory t)
+(setq backup-by-copying t)
+(setq backup-directory-alist
+      `(("." . ,user-temporary-file-directory)
+        (,tramp-file-name-regexp nil)))
+(setq auto-save-list-file-prefix
+      (concat user-temporary-file-directory ".auto-saves-"))
+(setq auto-save-file-name-transforms
+            `((".*" ,user-temporary-file-directory t)))
 
 ; Just some personal preferences and key bindings
 (show-paren-mode)
@@ -71,11 +87,6 @@
 (global-set-key (kbd "C--")     'text-scale-decrease)
 (global-set-key (kbd "C-=")     'text-scale-increase)
 
-(global-set-key (kbd "C-c <up>") 'windmove-up)
-(global-set-key (kbd "C-c <down>") 'windmove-down)
-(global-set-key (kbd "C-c <left>") 'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-
 (put 'narrow-to-region 'disabled nil)
 
 ;; Find FILE AT POINT -- this is a really cool plugin, where if your curser is on a file name (in the shell, in some script)
@@ -102,7 +113,6 @@
 (setq special-display-buffer-names
       '(
 	("*SQL*" (top . 0) (left . 20) (width . 110) (height . 35))
-	("*grep*" (top . 220) (left . 35) (width . 100) (height . 10))
 	("*info*" (top . 200) (left . 210) (height . 55))
 	("*mail*" (width . 80))
 	("electrix.html" (top . 40) (left . 20) (height . 65) (auto-raise . t))
@@ -195,4 +205,86 @@ prompt the user for a coding system."
 
 (global-wakatime-mode)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(add-hook 'after-init-hook 'global-company-mode)
+
 (xterm-mouse-mode)
+
+(add-to-list 'load-path "~/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load "company"
+   '(add-to-list 'company-backends 'company-tern))
+
+(add-hook 'python-mode-hook 'anaconda-mode)
+(eval-after-load "company"
+   '(add-to-list 'company-backends 'company-anaconda))
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+(setq venv-location "~/.envs")
+
+(require 'eclim)
+(require 'eclimd)
+(add-hook 'java-mode-hook 'eclim-mode)
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-eclim))
+
+
+(add-hook 'js-mode-hook 'linum-mode)
+(add-hook 'python-mode-hook 'linum-mode)
+(add-hook 'emacs-lisp-mode-hook 'linum-mode)
+
+(unless (display-graphic-p)
+  (setq linum-format "%4d \u2502 ")
+  (set-default 'truncate-lines t)
+  )
+
+;; Many thanks to the author of and contributors to the following posts:
+;; https://gist.github.com/mislav/5189704
+;; http://robots.thoughtbot.com/post/53022241323/seamlessly-navigate-vim-and-tmux-splits
+;;
+;; TODO: Make a script that generates tmux and emacs code without duplication
+;;
+;; NOTE: My keybindings are not the default emacs ones, using windmove
+
+;; Try to move direction, which is supplied as arg
+;; If cannot move that direction, send a tmux command to do appropriate move
+(defun windmove-emacs-or-tmux(dir tmux-cmd)
+  (interactive)
+  (if (ignore-errors (funcall (intern (concat "windmove-" dir))))
+      nil                       ;; Moving within emacs
+    (shell-command tmux-cmd)) ;; At edges, send command to tmux
+  )
+
+;Move between windows with custom keybindings
+(global-set-key [(meta up)]
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key [(meta down)]
+                '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key [(meta right)]
+                '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key [(meta left)]
+                '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+(global-set-key (kbd "ESC <up>")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key (kbd "ESC <down>")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key (kbd "ESC <right>")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key (kbd "ESC <left>")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+
+; find TODO items
+(defun grep-todos-in-dir (dir &optional not-recursive)
+  "Grep recursively for TODO comments in the given directory"
+  (interactive "Ddirectory:")
+  (let ((recur "-r"))
+    (if not-recursive
+        (setq recur "")
+    )
+    (grep (concat "grep -nH -I " recur " -E \"[\\#\\/\\-\\;\\*]\s*TODO|FIXME|XXX:?\" " dir " 2>/dev/null"))
+    )
+)
+(global-set-key [f4] 'grep-todos-in-dir) 
