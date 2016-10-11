@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+export TERM=xterm-256color
+
 PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
 PATH=$PATH:~/bin
@@ -154,7 +156,7 @@ smbuildall() {
 }
 
 littleserverssh() {
-    ssh jeremy@1.tcp.ngrok.io -p20672
+    ssh jeremy@littleserver.ddns.net
 }
 
 ###-begin-npm-completion-###
@@ -261,6 +263,7 @@ eval "$(ntfy shell-integration)"
 export PYTHONSTARTUP=~/.pythonrc
 export WORKON_HOME=~/.envs
 export PROJECT_HOME=~/python_projects
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
 source /home/jeremy/bin/tmux_autocompletion.sh
@@ -273,3 +276,8 @@ source ~/hub/etc/hub.bash_completion.sh
 alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
 alias octave="octave --no-gui"
 alias em="emacs -Q"
+alias open=xdg-open
+alias sudo='sudo '
+alias mail-html="mail -a 'Content-Type: text/html'"
+alias ngrok-sampleminded="ngrok http --subdomain=sampleminded 8080"
+alias google='BROWSER=lynx googler'
