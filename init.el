@@ -288,3 +288,5 @@ prompt the user for a coding system."
     )
 )
 (global-set-key [f4] 'grep-todos-in-dir) 
+
+(setq inhibit-startup-screen t)
