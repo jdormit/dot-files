@@ -23,10 +23,10 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (foggy-night)))
+ '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
  '(ecb-options-version "2.40")
  '(eclim-eclipse-dirs (quote ("~/opt/eclipse")))
  '(eclim-executable "~/opt/eclipse/eclim")
@@ -38,7 +38,9 @@
  '(sql-postgres-program "/usr/sup/pgsql/bin/psql")
  '(sql-sybase-options (quote ("-w" "2000")))
  '(wakatime-api-key "3eec5e9e-a6a9-48fa-8098-bab315e32f49")
- '(wakatime-cli-path "/usr/local/bin/wakatime"))
+ '(wakatime-cli-path "/usr/local/bin/wakatime")
+ '(wakatime-python-bin "/usr/bin/python")
+ '(wakatime-python-path "/usr/bin/python" t))
  
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -231,8 +233,8 @@ prompt the user for a coding system."
 (eval-after-load "company"
   '(add-to-list 'company-backends 'company-eclim))
 
-
 (add-hook 'js-mode-hook 'linum-mode)
+(add-hook 'web-mode-hook 'linum-mode)
 (add-hook 'python-mode-hook 'linum-mode)
 (add-hook 'emacs-lisp-mode-hook 'linum-mode)
 
@@ -240,6 +242,9 @@ prompt the user for a coding system."
   (setq linum-format "%4d \u2502 ")
   (set-default 'truncate-lines t)
   )
+
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
 ;; Many thanks to the author of and contributors to the following posts:
 ;; https://gist.github.com/mislav/5189704
@@ -290,3 +295,5 @@ prompt the user for a coding system."
 (global-set-key [f4] 'grep-todos-in-dir) 
 
 (setq inhibit-startup-screen t)
+
+(ido-mode t)

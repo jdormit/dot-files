@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export TERM=xterm-256color
+export TERM=xterm
 
 PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
@@ -159,6 +159,8 @@ littleserverssh() {
     ssh jeremy@littleserver.ddns.net
 }
 
+alias webstorm="/opt/webstorm/webstorm-latest"
+
 ###-begin-npm-completion-###
 #
 # npm command completion script
@@ -271,6 +273,10 @@ alias tmux="tmux -2"
 
 eval "$(thefuck --alias)"
 
+ngroksshtunnel() {
+    ngrok tcp --remote-addr=1.tcp.ngrok.io:20663 22
+}
+
 alias git=hub
 source ~/hub/etc/hub.bash_completion.sh
 alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
@@ -281,3 +287,5 @@ alias sudo='sudo '
 alias mail-html="mail -a 'Content-Type: text/html'"
 alias ngrok-sampleminded="ngrok http --subdomain=sampleminded 8080"
 alias google='BROWSER=lynx googler'
+alias copy='xclip -selection clipboard'
+PYTHONSTARTUP=~/pythonrc/pythonrc.py
