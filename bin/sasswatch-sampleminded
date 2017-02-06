@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ~/sampleminded/clinitraq/client/src/main/java/com/clinitraq/web/public/css;
+sass --watch common.scss:common.css; 

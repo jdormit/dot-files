@@ -1,0 +1,5 @@
+#!/bin/bash
+(
+cd /home/jeremy/cogmind/COGMIND\ \(Alpha\ 11\)/
+wine COGMIND.exe
+)
