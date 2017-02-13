@@ -1,0 +1,37 @@
+# Unencrypt passwords
+source "gpg -d ~/.mutt/passwords.gpg |"
+
+set editor = em
+set pager = less
+
+set sort=threads
+set sort_browser=date
+set sort_aux=reverse-last-date-received
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+set from = 'jeremy.dormitzer@gmail.com'
+set realname = 'Jeremy Dormitzer'
+
+set imap_user = 'jeremy.dormitzer@gmail.com'
+
+# REMOTE GMAIL FOLDERS
+set folder = 'imaps://imap.gmail.com:993'
+set spoolfile = '+INBOX'
+set postponed ='+[Google Mail]/Drafts'
+set trash = '+[Google Mail]/Trash'
+
+# LOCAL FOLDERS FOR CACHED HEADERS AND CERTIFICATES
+set header_cache =~/.mutt/cache/headers
+set message_cachedir =~/.mutt/cache/bodies
+set certificate_file =~/.mutt/certificates
+    
+# SMTP
+set smtp_url = 'smtps://jeremy.dormitzer@smtp.gmail.com'
+set record = ''
+
+# Stop asking to move read messages to mbox!
+set move = no
+
+set imap_keepalive = 900
