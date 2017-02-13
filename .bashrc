@@ -14,8 +14,8 @@ PATH=$PATH:~/golang/bin
 source ~/bin/git-completion.bash
 
 if [ -z "$EMACS" ]; then
-    alias emacs="emacs -nw"
-    export EDITOR="emacs -Q -nw"
+    alias emacs="em"
+    export EDITOR="em"
 else
     export EDITOR="emacs -Q"
 fi
@@ -281,7 +281,6 @@ alias git=hub
 source ~/hub/etc/hub.bash_completion.sh
 alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
 alias octave="octave --no-gui"
-alias em="emacs -Q"
 alias open=xdg-open
 alias sudo='sudo '
 alias mail-html="mail -a 'Content-Type: text/html'"
