@@ -249,6 +249,7 @@ prompt the user for a coding system."
 
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
 ;; Many thanks to the author of and contributors to the following posts:
 ;; https://gist.github.com/mislav/5189704
