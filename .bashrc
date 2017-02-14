@@ -290,6 +290,6 @@ alias open=xdg-open
 alias sudo='sudo '
 alias mail-html="mail -a 'Content-Type: text/html'"
 alias ngrok-sampleminded="ngrok http --subdomain=sampleminded 8080"
-alias google='BROWSER=lynx googler'
+alias google='BROWSER=w3m googler'
 alias copy='xclip -selection clipboard'
 PYTHONSTARTUP=~/pythonrc/pythonrc.py
