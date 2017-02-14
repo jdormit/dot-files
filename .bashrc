@@ -20,13 +20,8 @@ else
     export EDITOR="emacs -Q"
 fi
    
-# display git info in prompt
+# Git prompt script
 source ~/bin/git-prompt.sh
-PS1='$(__git_ps1 " (%s)")'
-export GIT_PS1_SHOWDIRTYSTATE="1"
-export GIT_PS1_SHOWSTASHSTATE="1"
-export GIT_PS1_SHOWUNTRACKEDFILES="1"
-export GIT_PS1_SHOWUPSTREAM="auto"
 
 # If not running interactively, don't do anything
 case $- in
@@ -83,16 +78,16 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'"$PS1"'\$ '
+    PROMPT_BEFORE='${debian_chroot:+($debian_chroot)}\[\033[33m\]\u@\h\[\033[00m\]:\[\033[35m\]\w\[\033[00m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'"$PS1"'\$ '
+    PROMPT_BEFORE='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PROMPT_BEFORE="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PROMPT_BEFORE"
     ;;
 *)
     ;;
@@ -113,6 +108,16 @@ fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+PROMPT_AFTER='$ '
+
+# Git prompt
+PROMPT_COMMAND='__git_ps1 "$PROMPT_BEFORE" "$PROMPT_AFTER"'
+export GIT_PS1_SHOWDIRTYSTATE="1"
+export GIT_PS1_SHOWSTASHSTATE="1"
+export GIT_PS1_SHOWUNTRACKEDFILES="1"
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWCOLORHINTS=true
 
 # some more ls aliases
 alias ll='ls -alF'
