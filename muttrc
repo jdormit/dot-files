@@ -2,7 +2,6 @@
 source "gpg -d ~/.mutt/passwords.gpg |"
 
 set editor = em
-set pager = less
 
 set sort=threads
 set sort_browser=date
@@ -10,6 +9,8 @@ set sort_aux=reverse-last-date-received
 
 auto_view text/html
 alternative_order text/plain text/enriched text/html
+
+set edit_headers=yes
 
 set from = 'jeremy.dormitzer@gmail.com'
 set realname = 'Jeremy Dormitzer'
