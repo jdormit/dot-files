@@ -13,7 +13,12 @@ alternative_order text/plain text/enriched text/html
 set edit_headers=yes
 
 set text_flowed=yes
+
 set display_filter=auto-mutt-alias
+set alias_file=~/.mutt/aliases.txt
+set sort_alias=alias
+set reverse_alias=yes
+source $alias_file
 
 set from = 'jeremy.dormitzer@gmail.com'
 set realname = 'Jeremy Dormitzer'
