@@ -9,9 +9,20 @@ from ConfigParser import ConfigParser
 from os import path, environ, listdir
 import re
 
-# The following function is copied from the nvPY source code
+# The following two functions are copied from the nvPY source code
 # Regex to identify the note title - the first line with non-whitespace
 note_title_re = re.compile('\s*(.*)\n?')
+
+def note_markdown(n):
+    """True if Simplenote has flagged the note as a markdown file"""
+    asystags = n.get('systemtags', 0)
+    # no systemtag at all
+    if not asystags:
+        return 0
+    if 'markdown' in asystags:
+        return 1
+    else:
+        return 0
 
 def get_note_title_file(note):
     """Return the filename corresponding to the note"""
@@ -28,12 +39,12 @@ def get_note_title_file(note):
         else:
             fn = unicode(fn)
             
-            if note_markdown(note):
-                fn += '.mkdn'
-            else:
-                fn += '.txt'
-                
-                return fn
+        if note_markdown(note):
+            fn += '.mkdn'
+        else:
+            fn += '.txt'
+
+        return fn
     else:
         return ''
     
@@ -47,11 +58,14 @@ notes_dir = nvpyConfig.get('nvpy', 'txt_path')
 simplenote = Simplenote(sn_username, sn_password)
 
 # Get notes list
-notes, _ = simplenote.get_note_list()
+notes_without_content, _ = simplenote.get_note_list()
+
+# Populate the notes
+notes = [simplenote.get_note(note['key'])[0] for note in notes_without_content]
 
 # Which notes do I have locally that are not in the notes list?
 remote_note_files = {get_note_title_file(note) : note for note in notes if get_note_title_file(note) != ''}
-local_note_files = listdir(notes_dir)
+local_note_files = listdir(unicode(notes_dir, 'utf-8'))
 
 for local_note_file in local_note_files:
     if local_note_file in remote_note_files.keys():
