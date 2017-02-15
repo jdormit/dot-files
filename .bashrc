@@ -288,6 +288,15 @@ emacs-w3m() {
     emacs -e "(w3m \"$*\")"
 }
 
+# nvPY CLI companion
+n() {
+    $EDITOR ~/notes/"$(echo "$*" | sed s/[\ \/]/_/g)".txt
+}
+
+nls() {
+    ls -c ~/notes/ | grep "$*"
+}
+
 alias git=hub
 source ~/hub/etc/hub.bash_completion.sh
 alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
