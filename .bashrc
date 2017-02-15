@@ -11,6 +11,8 @@ PATH=$PATH:~/bin
 export GOPATH=~/golang
 PATH=$PATH:~/golang/bin
 
+export BROWSER=w3m
+
 source ~/bin/git-completion.bash
 
 if [ -z "$EMACS" ]; then
@@ -282,6 +284,10 @@ ngroksshtunnel() {
     ngrok tcp --remote-addr=1.tcp.ngrok.io:20663 22
 }
 
+emacs-w3m() {
+    emacs -e "(w3m \"$*\")"
+}
+
 alias git=hub
 source ~/hub/etc/hub.bash_completion.sh
 alias sampleminded-log="tail -n500 -f ~/sampleminded/eclipse.log"
@@ -290,6 +296,6 @@ alias open=xdg-open
 alias sudo='sudo '
 alias mail-html="mail -a 'Content-Type: text/html'"
 alias ngrok-sampleminded="ngrok http --subdomain=sampleminded 8080"
-alias google='BROWSER=w3m googler'
+alias google=googler
 alias copy='xclip -selection clipboard'
 PYTHONSTARTUP=~/pythonrc/pythonrc.py
