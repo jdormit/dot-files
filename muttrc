@@ -12,6 +12,8 @@ alternative_order text/plain text/enriched text/html
 
 set edit_headers=yes
 
+set text_flowed=yes
+
 set from = 'jeremy.dormitzer@gmail.com'
 set realname = 'Jeremy Dormitzer'
 
