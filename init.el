@@ -251,6 +251,12 @@ prompt the user for a coding system."
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
+(add-hook 'find-file-hooks
+   (lambda ()
+     (let ((file (buffer-file-name)))
+       (when (and file (equal (file-name-directory file) "/home/jeremy/notes/"))
+         (org-mode)))))
+
 ;; Many thanks to the author of and contributors to the following posts:
 ;; https://gist.github.com/mislav/5189704
 ;; http://robots.thoughtbot.com/post/53022241323/seamlessly-navigate-vim-and-tmux-splits
