@@ -294,7 +294,9 @@ n() {
 }
 
 nls() {
-    ls -c ~/notes/ | grep "$*"
+    find ~/notes -type f -name "*$**" -print
+    printf "===========================\n"
+    grep -R -l "$*" ~/notes
 }
 
 alias git=hub
