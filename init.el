@@ -257,6 +257,17 @@ prompt the user for a coding system."
        (when (and file (equal (file-name-directory file) "/home/jeremy/notes/"))
          (org-mode)))))
 
+(add-hook 'org-mode-hook
+   (lambda ()
+     (local-unset-key [(meta up)])
+     (local-unset-key [(meta down)])
+     (local-unset-key [(meta left)])
+     (local-unset-key [(meta right)])
+     (local-unset-key (kbd "ESC <up>"))
+     (local-unset-key (kbd "ESC <down>"))
+     (local-unset-key (kbd "ESC <left>"))
+     (local-unset-key (kbd "ESC <right>"))))
+
 ;; Many thanks to the author of and contributors to the following posts:
 ;; https://gist.github.com/mislav/5189704
 ;; http://robots.thoughtbot.com/post/53022241323/seamlessly-navigate-vim-and-tmux-splits
