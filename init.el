@@ -266,7 +266,10 @@ prompt the user for a coding system."
      (local-unset-key (kbd "ESC <up>"))
      (local-unset-key (kbd "ESC <down>"))
      (local-unset-key (kbd "ESC <left>"))
-     (local-unset-key (kbd "ESC <right>"))))
+     (local-unset-key (kbd "ESC <right>"))
+     (local-set-key (kbd "C-c f") 'org-metaright)
+     (local-set-key (kbd "C-c b") 'org-metaleft)
+     ))
 
 ;; Many thanks to the author of and contributors to the following posts:
 ;; https://gist.github.com/mislav/5189704
