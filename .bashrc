@@ -290,7 +290,11 @@ emacs-w3m() {
 
 # nvPY CLI companion
 n() {
-    $EDITOR ~/notes/"$(echo "$*" | sed s/[\ \/]/_/g)".txt
+    note="$(echo "$*" | sed s/[\ \/]/_/g)"
+    if ! [ -e ~/notes/"$note".txt ]; then
+        echo "$*" > ~/notes/"$note".txt
+    fi
+    $EDITOR ~/notes/"$note".txt
 }
 
 nls() {
