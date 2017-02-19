@@ -257,6 +257,15 @@ prompt the user for a coding system."
        (when (and file (equal (file-name-directory file) "/home/jeremy/notes/"))
          (org-mode)))))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (ruby . t)
+   (C . t)
+   (java . t)
+   (js . t)
+   (sh . t)))
+
 (add-hook 'org-mode-hook
    (lambda ()
      (local-unset-key [(meta up)])
