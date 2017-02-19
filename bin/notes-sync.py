@@ -9,7 +9,7 @@ from ConfigParser import ConfigParser
 from os import path, environ, listdir
 import re
 
-# The following two functions are copied from the nvPY source code
+# The following is copied from the nvPY source code
 # Regex to identify the note title - the first line with non-whitespace
 note_title_re = re.compile('\s*(.*)\n?')
 
