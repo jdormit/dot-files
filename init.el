@@ -276,6 +276,15 @@ prompt the user for a coding system."
      (local-unset-key (kbd "ESC <down>"))
      (local-unset-key (kbd "ESC <left>"))
      (local-unset-key (kbd "ESC <right>"))
+     (local-unset-key "\M-j")
+     (local-unset-key "\M-k")
+     (local-unset-key "\M-h")
+     (local-unset-key "\M-l")
+     (local-unset-key (kbd "ESC j"))
+     (local-unset-key (kbd "ESC k"))
+     (local-unset-key (kbd "ESC h"))
+     (local-unset-key (kbd "ESC l"))
+
      (local-set-key (kbd "C-c f") 'org-metaright)
      (local-set-key (kbd "C-c b") 'org-metaleft)
      ))
@@ -314,6 +323,23 @@ prompt the user for a coding system."
                 '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
 (global-set-key (kbd "ESC <left>")
                 '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+(global-set-key "\M-j"
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key "\M-k"
+                '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key "\M-l"
+                '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key "\M-h"
+                '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+(global-set-key (kbd "ESC j")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key (kbd "ESC k")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key (kbd "ESC l")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key (kbd "ESC h")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+
 
 ; find TODO items
 (defun grep-todos-in-dir (dir &optional not-recursive)
