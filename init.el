@@ -107,7 +107,6 @@
 	(global-set-key "\M-L" 'ffap-next)
 	(global-set-key [S-mouse-3] 'ffap-at-mouse)
 	(global-set-key [C-S-mouse-3] 'ffap-menu)
-	(global-set-key "\C-x\C-f" 'find-file-at-point)
 	(global-set-key "\C-x\C-v" 'ffap-other-window)
 	(global-set-key "\C-x4f"   'ffap-other-window)
 	(global-set-key "\C-x5f"   'ffap-other-frame)
@@ -358,3 +357,7 @@ prompt the user for a coding system."
 (setq inhibit-startup-screen t)
 
 (ido-mode t)
+(setq ido-enable-flex-matching t) ; flexibly match names
+(setq ido-everywhere t) ; use ido-mode everywhere, in buffers and for finding files
+(setq ido-use-filename-at-point 'guess) ; for find-file-at-point
+(setq ido-use-url-at-point t) ; support IDO url matching too
