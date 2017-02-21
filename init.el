@@ -323,17 +323,17 @@ prompt the user for a coding system."
                 '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
 (global-set-key (kbd "ESC <left>")
                 '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
-(global-set-key "\M-j"
-                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
 (global-set-key "\M-k"
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key "\M-j"
                 '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
 (global-set-key "\M-l"
                 '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
 (global-set-key "\M-h"
                 '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
-(global-set-key (kbd "ESC j")
-                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
 (global-set-key (kbd "ESC k")
+                '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key (kbd "ESC j")
                 '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
 (global-set-key (kbd "ESC l")
                 '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
