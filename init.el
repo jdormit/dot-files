@@ -35,6 +35,7 @@
  '(eclim-eclipse-dirs (quote ("~/opt/eclipse")))
  '(eclim-executable "~/opt/eclipse/eclim")
  '(indent-tabs-mode nil)
+ '(paradox-github-token t)
  '(require-final-newline t)
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "smtp.utah.edu")
