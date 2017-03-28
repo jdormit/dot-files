@@ -53,25 +53,30 @@ local_note_files = listdir(unicode(notes_dir, 'utf-8'))
 
 # Upload missing local files to the remote
 for local_note_file in local_note_files:
-    if local_note_file in remote_note_files.keys():
-        # Update the remote note with the contents of the local note,
-        # if the local note has been updated after the remote note
-        if path.getmtime(path.join(notes_dir, local_note_file)) > float(remote_note_files[local_note_file]['modifydate']):
+    try:
+        if local_note_file in remote_note_files.keys():
+            # Update the remote note with the contents of the local note,
+            # if the local note has been updated after the remote note
+            if path.getmtime(path.join(notes_dir, local_note_file)) > float(remote_note_files[local_note_file]['modifydate']):
+                with open(path.join(notes_dir, local_note_file), 'r') as f:
+                    content = f.read()
+                    remote_note = remote_note_files[local_note_file]
+                    remote_note['content'] = content
+                    remote_note['modifydate'] = path.getmtime(path.join(notes_dir, local_note_file))
+                    simplenote.update_note(remote_note)
+        else:
+            # Or create a new remote note from the the local note
             with open(path.join(notes_dir, local_note_file), 'r') as f:
                 content = f.read()
-                remote_note = remote_note_files[local_note_file]
-                remote_note['content'] = content
-                remote_note['modifydate'] = path.getmtime(path.join(notes_dir, local_note_file))
-                simplenote.update_note(remote_note)
-    else:
-        # Or create a new remote note from the the local note
-        with open(path.join(notes_dir, local_note_file), 'r') as f:
-            content = f.read()
-            local_note = {'content': content}
-            simplenote.add_note(local_note)
+                local_note = {'content': content}
+                simplenote.add_note(local_note)
+    except IOError:
+        print "Error reading file " + local_note_file
 
 # Download missing remote files to the local store
 for remote_file_name, remote_note in remote_note_files.iteritems():
+    if remote_file_name is None or remote_file_name == "":
+        continue
     if remote_file_name not in local_note_files:
         # Save the contents of the remote note to a local files
         with open(path.join(notes_dir, remote_file_name), 'w') as f:

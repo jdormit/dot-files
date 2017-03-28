@@ -11,6 +11,8 @@ PATH=$PATH:~/bin
 export GOPATH=~/golang
 PATH=$PATH:~/golang/bin
 
+PATH=$PATH:~/.cargo/bin
+
 export BROWSER=w3m
 
 source ~/bin/git-completion.bash

@@ -14,6 +14,8 @@ set edit_headers=yes
 
 set text_flowed=yes
 
+set wait_key=no
+
 set display_filter=auto-mutt-alias
 set alias_file=~/.mutt/aliases.txt
 set sort_alias=alias
@@ -44,3 +46,9 @@ set record = ''
 set move = no
 
 set imap_keepalive = 900
+
+# Keybindings
+bind index G "imap-fetch-mail"
+
+# Macros
+macro compose \e5 "F pandoc -s -f markdown -t html \ny^T^Utext/html; charset=us-ascii\n"

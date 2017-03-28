@@ -12,8 +12,6 @@
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
-(require 'ecb)
-
 (require 'server)
 (or (server-running-p)
         (server-start))
@@ -27,7 +25,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (solarized-dark)))
+ '(custom-enabled-themes (quote (solarized-light)))
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d606ac41cdd7054841941455c0151c54f8bff7e4e050255dbd4ae4d60ab640c1" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
@@ -52,7 +50,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mmm-cleanup-submode-face ((t nil)))
+ '(mmm-code-submode-face ((t nil)))
+ '(mmm-comment-submode-face ((t nil)))
+ '(mmm-declaration-submode-face ((t nil)))
+ '(mmm-default-submode-face ((t nil)))
+ '(mmm-init-submode-face ((t nil)))
+ '(mmm-output-submode-face ((t nil)))
+ '(mmm-special-submode-face ((t nil))))
 
 (defvar user-temporary-file-directory
   (concat temporary-file-directory user-login-name "/"))
@@ -66,6 +71,12 @@
 (setq auto-save-file-name-transforms
             `((".*" ,user-temporary-file-directory t)))
 
+(defun region-to-xclip (&optional b e)
+  (interactive  "r")
+  (shell-command-on-region b e "xclip -selection clip")
+  (deactive-mark)
+  )
+
 ; Just some personal preferences and key bindings
 (show-paren-mode)
 (global-set-key "\C-x\C-b"	'electric-buffer-list)
@@ -76,7 +87,7 @@
 (global-set-key "\C-r"		'isearch-backward-regexp)
 (global-set-key [(meta f12)]	'next-multiframe-window) 
 (global-set-key [(meta f12)]	'next-multiframe-window)
-(global-set-key "\C-cc"		'copy-region-as-kill) ;; this should be out of the box, in my opinion. The equivalent of cmd - c
+(global-set-key "\C-cc"		'region-to-xclip)
 (global-set-key "\C-cl"		'goto-line)
 (global-set-key "\C-ct"		'toggle-truncate-lines)
 (global-set-key "\C-c\\"	'comment-region)
@@ -93,6 +104,9 @@
 (global-set-key "\C-x\M-f"      'sudo-find-file)
 (global-set-key (kbd "C--")     'text-scale-decrease)
 (global-set-key (kbd "C-=")     'text-scale-increase)
+(global-set-key "\M-/"          'completion-at-point)
+(global-set-key "\C-xl"         'org-store-link)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -239,8 +253,13 @@ prompt the user for a coding system."
 
 (add-hook 'js-mode-hook 'linum-mode)
 (add-hook 'web-mode-hook 'linum-mode)
+(add-hook 'vue-mode-hook 'linum-mode)
+(add-hook 'rust-mode-hook 'linum-mode)
+(add-hook 'toml-mode-hook 'linum-mode)
 (add-hook 'python-mode-hook 'linum-mode)
 (add-hook 'emacs-lisp-mode-hook 'linum-mode)
+(add-hook 'scala-mode-hook 'linum-mode)
+(add-hook 'java-mode-hook 'linum-mode)
 
 (unless (display-graphic-p)
   (setq linum-format "%4d \u2502 ")
@@ -250,6 +269,9 @@ prompt the user for a coding system."
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+(add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
+
+(add-hook 'mail-mode-hook 'visual-line-mode)
 
 (add-hook 'find-file-hooks
    (lambda ()
@@ -287,6 +309,8 @@ prompt the user for a coding system."
 
      (local-set-key (kbd "C-c f") 'org-metaright)
      (local-set-key (kbd "C-c b") 'org-metaleft)
+
+     (visual-line-mode)
      ))
 
 ;; Many thanks to the author of and contributors to the following posts:
@@ -361,3 +385,9 @@ prompt the user for a coding system."
 (setq ido-everywhere t) ; use ido-mode everywhere, in buffers and for finding files
 (setq ido-use-filename-at-point 'guess) ; for find-file-at-point
 (setq ido-use-url-at-point t) ; support IDO url matching too
+(ido-ubiquitous-mode t)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(autoload 'ido-at-point-mode "ido-at-point")
+(ido-at-point-mode)
