@@ -4,6 +4,9 @@
 
 export TERM=xterm
 
+GPG_TTY=$(tty)
+export GPG_TTY
+
 PATH=$PATH:/usr/lib/postgresql/9.4/bin/
 PATH=$PATH:~/eclipse/java-neon/eclipse
 PATH=$PATH:~/bin
