@@ -36,6 +36,12 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Rust mode
 Plugin 'rust-lang/rust.vim'
 
+" Scala mode
+Plugin 'derekwyatt/vim-scala'
+
+" Vue mode
+Plugin 'posva/vim-vue'
+
 call vundle#end()
 filetype plugin indent on
 " End Vundle setup
@@ -57,7 +63,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_rust_checkers = ['rustc']
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -147,6 +152,9 @@ endif
 
 set nowrap
 set number
+set expandtab
+set shiftwidth=4
+set softtabstop=4
 
 " Add optional packages.
 "
