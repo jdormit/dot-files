@@ -26,7 +26,22 @@
 	ls = log --pretty=tformat:\"%C(green)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate
 	ll = log --pretty=tformat:\"%C(green)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]\" --decorate --numstat
         
+[commit]
+        gpgSign = true
+
 [push]
 	default = simple
+        followTags = true
+
 [status]
 	submoduleSummary = true
+        showUntrackedFiles = all
+
+[diff]
+        tool = icdiff
+
+[difftool]
+        prompt = false
+
+[difftool "icdiff"]
+        cmd = /usr/local/bin/icdiff --no-bold --line-numbers $LOCAL $REMOTE
