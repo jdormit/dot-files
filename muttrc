@@ -1,6 +1,9 @@
 # Unencrypt passwords
 source "gpg -d ~/.mutt/passwords.gpg |"
 
+# GPG encryption
+source "~/.mutt/gpg.rc"
+
 set editor = em
 
 set sort=threads
@@ -49,6 +52,8 @@ set imap_keepalive = 900
 
 # Keybindings
 bind index G "imap-fetch-mail"
+bind compose p pgp-menu
 
 # Macros
 macro compose \e5 "F pandoc -s -f markdown -t html \ny^T^Utext/html; charset=us-ascii\n"
+macro compose Y pfy "send mail without GPG"

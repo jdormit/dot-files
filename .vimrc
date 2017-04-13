@@ -42,6 +42,9 @@ Plugin 'derekwyatt/vim-scala'
 " Vue mode
 Plugin 'posva/vim-vue'
 
+" Elm mode
+Plugin 'lambdatoast/elm.vim'
+
 call vundle#end()
 filetype plugin indent on
 " End Vundle setup
